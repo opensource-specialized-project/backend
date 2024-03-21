@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.medikok.backend.service.ApiService;
@@ -21,7 +20,6 @@ import com.medikok.backend.info.DrugInfo;
 public class ApiController {
     private ApiService apiService;
 
-    @Autowired
     public ApiController(ApiService apiService) {
         this.apiService = apiService;
     }

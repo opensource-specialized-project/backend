@@ -29,7 +29,7 @@ public class ApiService {
                 + "&pageNo=" + 1
                 + "&numOfRows=" + 100
                 + "&type=" + "json";
-
+        System.out.println(url);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))

@@ -6,24 +6,24 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DrugInfo {
-    private String resultCode;
-    private String resultMsg;
-    private int numOfRows;
-    private int pageNo;
-    private int totalCount;
-    private String entpName;
-    private String itemName;
-    private String itemSeq;
-    private List<String> efcyQesitm;
-    private String useMethodQesitm;
-    private String atpnWarnQesitm;
-    private String atpnQesitm;
-    private String intrcQesitm;
-    private String seQesitm;
-    private String depositMethodQesitm;
-    private String openDe;
-    private String updateDe;
-    private String itemImage;
+    private String resultCode; // 결과코드
+    private String resultMsg; // 결과메시지
+    private int numOfRows; // 한 페이지 결과 수
+    private int pageNo; // 페이지 번호
+    private int totalCount; // 전체 결과 수
+    private String entpName; // 업체명
+    private String itemName; // 제품명
+    private String itemSeq; // 품목기준코드
+    private List<String> efcyQesitm; // 효능
+    private String useMethodQesitm; // 사용법
+    private String atpnWarnQesitm; // 사용 전 주의사항
+    private String atpnQesitm; // 사용상 주의사항
+    private String intrcQesitm; // 상호작용
+    private String seQesitm; // 부작용
+    private String depositMethodQesitm; // 보관법
+    private String openDe; // 공개일자
+    private String updateDe; // 수정일자
+    private String itemImage; // 낱알이미지
 
     public String removeQuestionMarks(String s) {
         String pattern = "\\?";
