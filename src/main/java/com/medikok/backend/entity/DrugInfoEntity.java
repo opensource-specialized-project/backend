@@ -13,6 +13,8 @@ import java.util.Arrays;
 
 import jakarta.persistence.Column; // 열 지정
 
+import com.medikok.backend.info.DrugInfo;
+
 @Table(name = "drug_info")
 @Entity
 public class DrugInfoEntity {
@@ -20,33 +22,45 @@ public class DrugInfoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "item_name", nullable = false, length = 255) // 제품명
+    @Column(name = "item_name", nullable = true) // 제품명
     private String itemName;
 
-    @Column(name = "efcy_qesitm", nullable = false, length = 255) // 효능
+    @Column(name = "efcy_qesitm", nullable = true) // 효능
     private String efcyQesitm;
 
-    @Column(name = "use_method_qesitm", nullable = false, length = 255) // 사용법
+    @Column(name = "use_method_qesitm", nullable = true) // 사용법
     private String useMethodQesitm;
 
-    @Column(name = "atpn_warn_qesitm", nullable = false, length = 255) // 사용 전 주의사항
+    @Column(name = "atpn_warn_qesitm", nullable = true) // 사용 전 주의사항
     private String atpnWarnQesitm;
 
-    @Column(name = "atpn_qesitm", nullable = false, length = 255) // 사용상 주의사항
+    @Column(name = "atpn_qesitm", nullable = true) // 사용 상 주의사항
     private String atpnQesitm;
 
-    @Column(name = "intrc_qesitm", nullable = false, length = 255) // 상호작용
+    @Column(name = "intrc_qesitm", nullable = true) // 상호작용
     private String intrcQesitm;
 
-    @Column(name = "se_qesitm", nullable = false, length = 255) // 부작용
+    @Column(name = "se_qesitm", nullable = true) // 부작용
     private String seQesitm;
 
-    @Column(name = "deposit_method_qesitm", nullable = false, length = 255) // 보관법
+    @Column(name = "deposit_method_qesitm", nullable = true) // 보관법
     private String depositMethodQesitm;
 
-    @Column(name = "item_image", nullable = false, length = 255) // 이미지
+    @Column(name = "item_image", nullable = true) // 이미지
     private String itemImage;
 
+    // DrugInfo를 통한 DrugInfoEntity set
+    public void setDrugInfoEntity(DrugInfo drugInfo) {
+        setItemName(drugInfo.getItemName()); // 제품명 set
+        setEfcyQesitm(drugInfo.getEfcyQesitm()); // 효능 set
+        setUseMethodQesitm(drugInfo.getUseMethodQesitm()); // 사용법 set
+        setAtpnWarnQesitm(drugInfo.getAtpnWarnQesitm()); // 사용 전 주의사항 set
+        setAtpnQesitm(drugInfo.getAtpnQesitm()); // 사용상 주의사항 set
+        setIntrcQesitm(drugInfo.getIntrcQesitm()); // 상호작용 set
+        setSeQesitm(drugInfo.getSeQesitm()); // 부작용 set
+        setDepositMethodQesitm(drugInfo.getDepositMethodQesitm()); // 보관법 set
+        setItemImage(drugInfo.getItemImage()); // 이미지 set
+    }
 
     // 제품명 getter, setter
     public String getItemName() {
