@@ -3,7 +3,9 @@ package com.medikok.backend.entity;
 // jakarta
 import jakarta.persistence.Table; // 테이블 지정
 import jakarta.persistence.Entity; // 데이터베이스 테이블과 매핑되는 클래스
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id; // 엔터티의 기본 키를 지정
+import jakarta.persistence.Lob;
 import jakarta.persistence.GeneratedValue; // 기본 키 값에 대한 생성자 제공
 import jakarta.persistence.GenerationType; // 기본 키 값에 대한 생성 타입
 
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column; // 열 지정
 
 import com.medikok.backend.info.DrugInfo;
@@ -28,25 +31,37 @@ public class DrugInfoEntity {
     @Column(name = "efcy_qesitm", nullable = true) // 효능
     private String efcyQesitm;
 
-    @Column(name = "use_method_qesitm", nullable = true) // 사용법
-    private String useMethodQesitm;
+    @Column(name = "use_method_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 사용법
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] useMethodQesitm;
 
-    @Column(name = "atpn_warn_qesitm", nullable = true) // 사용 전 주의사항
-    private String atpnWarnQesitm;
+    @Column(name = "atpn_warn_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 사용 전 주의사항
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] atpnWarnQesitm;
 
-    @Column(name = "atpn_qesitm", nullable = true) // 사용 상 주의사항
-    private String atpnQesitm;
+    @Column(name = "atpn_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 사용 상 주의사항
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] atpnQesitm;
 
-    @Column(name = "intrc_qesitm", nullable = true) // 상호작용
-    private String intrcQesitm;
+    @Column(name = "intrc_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 상호작용
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] intrcQesitm;
 
-    @Column(name = "se_qesitm", nullable = true) // 부작용
-    private String seQesitm;
+    @Column(name = "se_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 부작용
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] seQesitm;
 
-    @Column(name = "deposit_method_qesitm", nullable = true) // 보관법
-    private String depositMethodQesitm;
+    @Column(name = "deposit_method_qesitm", nullable = true, columnDefinition = "MEDIUMBLOB") // 보관법
+    @Lob
+    @Basic(fetch = FetchType.LAZY) // 'mediumblob'에 대한 매핑 전략으로 설정
+    private byte[] depositMethodQesitm;
 
-    @Column(name = "item_image", nullable = true) // 이미지
+    @Column(name = "item_image", nullable = true, columnDefinition = "MEDIUMBLOB") // 이미지
     private String itemImage;
 
     // DrugInfo를 통한 DrugInfoEntity set
@@ -86,56 +101,56 @@ public class DrugInfoEntity {
 
     // 사용법 getter, setter
     public String getUseMethodQesitm() {
-        return this.useMethodQesitm;
+        return new String(this.useMethodQesitm);
     }
 
     public void setUseMethodQesitm(String useMethodQesitm) {
-        this.useMethodQesitm = useMethodQesitm;
+        this.useMethodQesitm = useMethodQesitm.getBytes();
     }
 
     // 사용 전 주의사항 getter, setter
     public String getAtpnWarnQesitm() {
-        return this.atpnWarnQesitm;
+        return new String(this.atpnWarnQesitm);
     }
 
     public void setAtpnWarnQesitm(String atpnWarnQesitm) {
-        this.atpnWarnQesitm = atpnWarnQesitm;
+        this.atpnWarnQesitm = atpnWarnQesitm.getBytes();
     }
 
     // 사용상 주의사항 getter, setter
     public String getAtpnQesitm() {
-        return this.atpnQesitm;
+        return new String(this.atpnQesitm);
     }
 
     public void setAtpnQesitm(String atpnQesitm) {
-        this.atpnQesitm = atpnQesitm;
+        this.atpnQesitm = atpnQesitm.getBytes();
     }
 
     // 상호작용 getter, setter
     public String getIntrcQesitm() {
-        return intrcQesitm;
+        return new String(this.intrcQesitm);
     }
 
     public void setIntrcQesitm(String intrcQesitm) {
-        this.intrcQesitm = intrcQesitm;
+        this.intrcQesitm = intrcQesitm.getBytes();
     }
 
     // 부작용 getter, setter
     public String getSeQesitm() {
-        return this.seQesitm;
+        return new String(this.seQesitm);
     }
     
     public void setSeQesitm(String seQesitm) {
-        this.seQesitm = seQesitm;
+        this.seQesitm = seQesitm.getBytes();
     }
 
     // 보관법 getter, setter
     public String getDepositMethodQesitm() {
-        return this.depositMethodQesitm;
+        return new String(this.depositMethodQesitm);
     }
 
     public void setDepositMethodQesitm(String depositMethodQesitm) {
-        this.depositMethodQesitm = depositMethodQesitm;
+        this.depositMethodQesitm = depositMethodQesitm.getBytes();
     }
 
     // 이미지 getter, setter
