@@ -3,7 +3,7 @@ import com.medikok.backend.repository.DrugInfoRepository;
 
 // shared
 import com.medikok.backend.shared.DrugInfo;
-import com.medikok.backend.shared.AlarmInfo;
+// import com.medikok.backend.shared.AlarmInfo;
 import com.medikok.backend.repository.AlarmInfoRepository;
 
 import java.util.List;
@@ -52,14 +52,14 @@ public class MysqlService {
         return alarmInfoRepository.findAll();
     }
 
-    public boolean saveAlarmInfoEntity(AlarmInfo alarmInfo) {
-        AlarmInfoEntity alarmInfoEntity = new AlarmInfoEntity();
-        try {
-            alarmInfoRepository.save(alarmInfoEntity);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    // public boolean saveAlarmInfoEntity(AlarmInfo alarmInfo) {
+    //     AlarmInfoEntity alarmInfoEntity = new AlarmInfoEntity();
+    //     try {
+    //         alarmInfoRepository.save(alarmInfoEntity);
+    //         return true;
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return false;
+    //     }
+    // }
 }

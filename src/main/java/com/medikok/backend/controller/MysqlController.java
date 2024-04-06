@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.PostMapping;
 
 // API 연결 관련 서비스
 import com.medikok.backend.service.ApiService;
 // Mysql 연결 관련 서비스
 import com.medikok.backend.service.MysqlService;
 import com.medikok.backend.shared.DrugInfo;
-import com.medikok.backend.shared.AlarmInfo;
+// import com.medikok.backend.shared.AlarmInfo;
 
 // 리스트
 import java.util.List;
@@ -71,13 +71,13 @@ public class MysqlController {
         return alarmInfoEntityList;
     }
 
-    @PostMapping("/alarm-info-list/create")
-    public AlarmInfoEntity createAlarmInfoEntity(AlarmInfo alarmInfo) {
-        AlarmInfoEntity alarmInfoEntity = new AlarmInfoEntity();
-        try {
-            List<AlarmInfoEntity> alarmInfoEntityList = mysqlService.findAllAlarmInfoEntity();
-            mysqlService.saveAlarmInfoEntity(alarmInfo);
-        } catch (Exception E) {
-        }
-    }
+    // @PostMapping("/alarm-info-list/create")
+    // public AlarmInfoEntity createAlarmInfoEntity(AlarmInfo alarmInfo) {
+    //     AlarmInfoEntity alarmInfoEntity = new AlarmInfoEntity();
+    //     try {
+    //         List<AlarmInfoEntity> alarmInfoEntityList = mysqlService.findAllAlarmInfoEntity();
+    //         mysqlService.saveAlarmInfoEntity(alarmInfo);
+    //     } catch (Exception E) {
+    //     }
+    // }
 }

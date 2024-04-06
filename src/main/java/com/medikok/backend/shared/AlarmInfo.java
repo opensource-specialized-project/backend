@@ -1,5 +1,5 @@
-package com.medikok.backend.shared;
+// package com.medikok.backend.shared;
 
-public class AlarmInfo {
-    private
-}
+// public class AlarmInfo {
+//     private
+// }
