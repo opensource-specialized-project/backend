@@ -10,13 +10,14 @@ import jakarta.persistence.GeneratedValue; // 기본 키 값에 대한 생성자
 import jakarta.persistence.GenerationType; // 기본 키 값에 대한 생성 타입
 
 import java.util.List;
+
+import com.medikok.backend.shared.DrugInfo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column; // 열 지정
-
-import com.medikok.backend.info.DrugInfo;
 
 @Table(name = "drug_info")
 @Entity

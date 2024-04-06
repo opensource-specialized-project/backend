@@ -33,6 +33,8 @@ dependencies {
 	implementation 'com.mysql:mysql-connector-j'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+	// https://mvnrepository.com/artifact/com.asprise.ocr/java-ocr-api
+	implementation group: 'com.asprise.ocr', name: 'java-ocr-api', version: '15.3.0.3'
 
 }
 

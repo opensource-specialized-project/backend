@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-// 약 정보 클래스
-import com.medikok.backend.info.DrugInfo;
+import com.medikok.backend.shared.DrugInfo;
 
 @Service
 public class ApiService {

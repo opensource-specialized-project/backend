@@ -1,4 +1,4 @@
-package com.medikok.backend.info;
+package com.medikok.backend.shared;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,6 @@ public class DrugInfo {
     public String removeQuestionMarks(String s) {
         String pattern = "\\?";
         return s.replaceAll(pattern, " ").trim();
-
     }
 
     @JsonProperty("resultCode")
