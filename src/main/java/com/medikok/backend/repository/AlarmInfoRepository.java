@@ -8,4 +8,5 @@ import java.util.List;
 public interface AlarmInfoRepository extends JpaRepository<AlarmInfoEntity, Long> {
     @Override
     List<AlarmInfoEntity> findAll();
+    AlarmInfoEntity findByAlarmLabel(String alarmLabel);
 }

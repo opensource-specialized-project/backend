@@ -7,6 +7,5 @@ import java.util.List;
 public interface DrugInfoRepository extends JpaRepository<DrugInfoEntity, Long> {
     @Override
     List<DrugInfoEntity> findAll();
-    
 }
  
