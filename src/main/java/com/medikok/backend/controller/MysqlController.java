@@ -40,7 +40,7 @@ public class MysqlController {
         List<DrugInfoEntity> drugInfoEntityList = new ArrayList<DrugInfoEntity>();
         try {
             List<DrugInfo> drugInfoList = apiService.getDataFromDrbEasyDrugInfoService();
-            mysqlService.saveAllDrugInfoEntity(drugInfoList);
+            mysqlService.saveAllDrugInfoEntityByInfo(drugInfoList);
             drugInfoEntityList = mysqlService.findAllDrugInfoEntity();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

@@ -30,7 +30,18 @@ public class MysqlService {
         return drugInfoRepository.findAll();
     }
     
-    public boolean saveAllDrugInfoEntity(List<DrugInfo> drugInfoList) {
+    public boolean saveAllDrugInfoEntityByEntity(List<DrugInfoEntity> drugInfoEntityList) {
+        try {
+            drugInfoRepository.saveAll(drugInfoEntityList);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    } 
+
+    public boolean saveAllDrugInfoEntityByInfo(List<DrugInfo> drugInfoList) {
         try {
             List<DrugInfoEntity> drugInfoEntityList = new ArrayList<DrugInfoEntity>();
             for (DrugInfo drugInfo : drugInfoList) {
