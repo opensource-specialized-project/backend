@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/ocr")
 public class OCRController {
-    public static void main(String[] args) {
+    @GetMapping("/ocr")
+    public void ocr(String[] args) {
         String apiURL = "https://13zzspooc5.apigw.ntruss.com/custom/v1/31024/3ee28955498450db332f2b64c9223287b700fe7ca12bb794e813c11bb1c52678/general";
         String secretKey = "a1BCQlljTHBoUXJuQWpJbHB1eldNVVV6Rk9Oc1FPUWM=";
 
