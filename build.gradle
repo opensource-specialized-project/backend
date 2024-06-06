@@ -35,7 +35,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.asprise.ocr/java-ocr-api
 	implementation group: 'com.asprise.ocr', name: 'java-ocr-api', version: '15.3.0.3'
+	implementation 'org.json:json:20211205'
 
+	implementation 'commons-io:commons-io:2.11.0'
 }
 
 tasks.named('test') {

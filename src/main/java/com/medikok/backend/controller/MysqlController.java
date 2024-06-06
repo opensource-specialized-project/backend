@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 // API 연결 관련 서비스
 import com.medikok.backend.service.ApiService;
@@ -26,6 +29,10 @@ import com.medikok.backend.entity.DrugInfoEntity;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 // 알람 정보 엔티티
 import com.medikok.backend.entity.AlarmInfoEntity;
+// 이미지 불러오기
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/mysql-request")
@@ -125,5 +132,51 @@ public class MysqlController {
             e.printStackTrace();
         }
         return alarmInfoEntity;
+    }
+    // 불러온 이미지 저장
+    public static class ImageRequest {
+        private String image;
+    
+        // 기본 생성자 추가
+        public ImageRequest() {
+        }
+    
+        public String getImage() {
+            return image;
+        }
+    
+        public void setImage(String image) {
+            this.image = image;
+        }
+    }
+
+    @PostMapping("/saveImage")
+    public ResponseEntity<String> saveImage(@RequestBody ImageRequest imageRequest) {
+        try {
+            // 이미지 처리 로직 추가
+            String base64Image = imageRequest.getImage();
+            System.out.println("Received image: " + base64Image);
+            // 파일로 저장할 경로
+            String filePath = "testImage.jpg";
+
+            try {
+                // Base64 문자열 디코딩
+                byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+
+                // 파일 객체 생성
+                File imageFile = new File(filePath);
+
+                // 바이트 배열을 파일로 쓰기
+                FileUtils.writeByteArrayToFile(imageFile, imageBytes);
+
+                System.out.println("Image saved successfully!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return new ResponseEntity<>("Image saved successfully", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to save image: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }   
