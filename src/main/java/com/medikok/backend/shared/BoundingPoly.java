@@ -25,4 +25,8 @@ public class BoundingPoly {
                 "vertices=" + vertices +
                 '}';
     }
+
+    public float getMinX() {
+        return 0;
+    }
 }

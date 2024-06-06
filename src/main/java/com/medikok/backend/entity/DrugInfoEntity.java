@@ -65,6 +65,15 @@ public class DrugInfoEntity {
     @Column(name = "item_image", nullable = true, columnDefinition = "MEDIUMBLOB") // 이미지
     private String itemImage;
 
+    public DrugInfoEntity() {
+    
+    }
+    
+    public DrugInfoEntity(String itemName, String efcyQesitm) {
+        setItemName(itemName);
+        setEfcyQesitm(Arrays.asList(efcyQesitm.split(",")));  
+    }
+
     // DrugInfo를 통한 DrugInfoEntity set
     public void setDrugInfoEntity(DrugInfo drugInfo) {
         setItemName(drugInfo.getItemName()); // 제품명 set
