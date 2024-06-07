@@ -40,7 +40,7 @@ public class ExtractInferTextController {
     public List<DrugInfoEntity> printTextdata() {
         try {
             // 파일에서 JSON 전체 내용 읽기 (UTF-8로 인코딩된 파일)
-            byte[] jsonData = Files.readAllBytes(Paths.get("please.json"));
+            byte[] jsonData = Files.readAllBytes(Paths.get("FinalTest.json"));
             String content = new String(jsonData, StandardCharsets.UTF_8);
             
             // JSON 전체 내용을 JSONObject로 파싱
@@ -81,17 +81,87 @@ public class ExtractInferTextController {
             }
 
             extractedText.setFieldsFromJson(extractedFields);
-            
-            // 콘솔에 출력
+
+            double referenceXForImage = Double.MIN_VALUE;
+            double referenceYForImage = Double.MIN_VALUE;
+            double referenceXForDose = Double.MAX_VALUE;
+
+            // Find the reference points
             for (ExtractedField field : extractedText.getFields()) {
-                String inferText =  field.getInferText();
-                if (isDrugName(inferText)) {
-                    itemNameQueue.add(inferText);
+                if ("약품이미지".equals(field.getInferText())) {
+                    referenceXForImage = field.getBoundingPoly().getVertices().get(1).getX();
+                    referenceYForImage = field.getBoundingPoly().getVertices().get(1).getY();
                 }
-                if (isDrugEfcy(inferText)) {
-                    efcyQueue.add(inferText);
+                if ("투약량".equals(field.getInferText())) {
+                    referenceXForDose = field.getBoundingPoly().getVertices().get(0).getX();
                 }
             }
+
+            // Filter elements based on the reference points
+            for (ExtractedField field : extractedText.getFields()) {
+                String text = field.getInferText();
+                List<Vertex> vertices = field.getBoundingPoly().getVertices();
+
+                if ((vertices.get(0).getX() > referenceXForImage) && 
+                    (vertices.get(0).getX() < referenceXForDose) && 
+                    (vertices.get(0).getY() > referenceYForImage)) {
+
+                    // Add medicine names to the queue
+                    if (text.contains("정") && !text.contains("일정")) {
+                        String medicineName = text.split("정")[0] + "정";
+                        if (!itemNameQueue.contains(medicineName)) {
+                            itemNameQueue.add(medicineName);
+                        }
+                    } else if (text.contains("캡슐")) {
+                        String medicineName = text.split("캡슐")[0] + "캡슐";
+                        if (!itemNameQueue.contains(medicineName)) {
+                            itemNameQueue.add(medicineName);
+                        }
+                    } else if (text.contains("액")) {
+                        String medicineName = text.split("액")[0] + "액";
+                        if (!itemNameQueue.contains(medicineName)) {
+                            itemNameQueue.add(medicineName);
+                        }
+                    }
+
+                    // Handle texts starting with "[" and potentially ending with "]"
+                    if (text.startsWith("[") && !text.contains("앞") && !text.contains("뒤")) {
+                        StringBuilder combinedText = new StringBuilder(text);
+                        if (!text.endsWith("]")) {
+                            double startX = vertices.get(0).getX();
+                            double startY = vertices.get(0).getY();
+                            boolean foundEndBracket = false;
+
+                            for (ExtractedField nextField : extractedText.getFields()) {
+                                String nextText = nextField.getInferText();
+                                List<Vertex> nextVertices = nextField.getBoundingPoly().getVertices();
+                                if (nextVertices.get(0).getY() == startY && nextVertices.get(0).getX() > startX) {
+                                    combinedText.append(" ").append(nextText);
+                                    if (nextText.endsWith("]")) {
+                                        foundEndBracket = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (foundEndBracket) {
+                                String combinedResult = combinedText.toString();
+                                combinedResult = combinedResult.substring(1, combinedResult.length() - 1);  // Remove the starting "[" and ending "]"
+                                efcyQueue.add(combinedResult);
+                            }
+                        } else {
+                            String effectText = text.substring(1, text.length() - 1);  // Remove the starting "[" and ending "]"
+                            efcyQueue.add(effectText);
+                        }
+                    }
+                }
+            }
+
+            // 콘솔에 출력
+            System.out.println("Medicine Names Queue: " + itemNameQueue);
+            System.out.println("Medicine Effects Queue: " + efcyQueue);
+
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,26 +176,5 @@ public class ExtractInferTextController {
         drugInfoRepository.saveAll(drugInfoEntityList);
 
         return drugInfoEntityList;
-    }
-
-       
-    private boolean isDrugName(String drugName) {
-        // "액", "캡슐", "밀리그램" 중 하나가 포함되어 있는지 확인
-        boolean containsLiquid = drugName.contains("액");
-        boolean containsCapsule = drugName.contains("캡슐");
-        boolean containsMilligram = drugName.contains("밀리그램");
-        
-        // 세 가지 중 하나라도 포함되어 있으면 true 반환
-        return containsLiquid || containsCapsule || containsMilligram;
-    }
-    
-    
-    private boolean isDrugEfcy(String drugEfcy) {
-        // "[" 또는 "]"가 포함되어 있는지 확인
-        boolean containsLeftBracket = drugEfcy.contains("[");
-        boolean containsRightBracket = drugEfcy.contains("]");
-        
-        // 둘 중 하나라도 포함되어 있으면 true 반환
-        return containsLeftBracket || containsRightBracket;
     }
 }
