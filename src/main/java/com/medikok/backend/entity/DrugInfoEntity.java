@@ -66,12 +66,18 @@ public class DrugInfoEntity {
     private String itemImage;
 
     public DrugInfoEntity() {
-    
+        this.useMethodQesitm = new byte[0];
+        this.atpnWarnQesitm = new byte[0];
+        this.atpnQesitm = new byte[0];
+        this.intrcQesitm = new byte[0];
+        this.seQesitm = new byte[0];
+        this.depositMethodQesitm = new byte[0];
     }
     
     public DrugInfoEntity(String itemName, String efcyQesitm) {
+        this();
         setItemName(itemName);
-        setEfcyQesitm(Arrays.asList(efcyQesitm.split(",")));  
+        setEfcyQesitm(efcyQesitm);
     }
 
     // DrugInfo를 통한 DrugInfoEntity set
@@ -108,6 +114,10 @@ public class DrugInfoEntity {
     public void setEfcyQesitm(List<String> efcyQesitm) {
         this.efcyQesitm = String.join(",", efcyQesitm); // 리스트 요소들을 ,로 묶어 문자열 형식으로 저장
     }   
+    
+    public void setEfcyQesitm(String efcyQesitm) {
+        this.efcyQesitm = efcyQesitm;
+    }
 
     // 사용법 getter, setter
     public String getUseMethodQesitm() {
